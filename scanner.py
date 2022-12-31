@@ -8,7 +8,7 @@ def getArgs():
     parser = argparse.ArgumentParser(description="A simple Network Scanner built upon Scapy")
     parser.add_argument("-a", "--addr", dest="ip", help="IP Range to Scan", required=True)
     parser.add_argument("-i", "--iface", dest="iface", help="Network Interface to Use", required=False)
-    parser.add_argument("-t", "--timeout", dest="timeout", help="Timeout for broadcasting ARP request", required=False)
+    parser.add_argument("-t", "--timeout", dest="timeout", type=int, help="Timeout for broadcasting ARP request", required=False)
     options = parser.parse_args()
     return options
 
@@ -25,12 +25,12 @@ def scan_network(ip, timeout=3):
 
 
 def display_res(result):
-    print("Following Responses were captured")
+    print("Following Devices were found in \"" + opts.ip + "\" Network")
     print("==============================================")
-    print("IP\t\t\tMAC Address")
+    print("  IP\t\t\t  MAC Address")
     print("==============================================")
-    for response in result:
-        print(response[1].psrc + "\t\t" + response[1].hwsrc)
+    for idx, response in enumerate(result):
+        print(response[1].psrc + "\t|\t" + response[1].hwsrc)
         print("----------------------------------------------")
 
 
