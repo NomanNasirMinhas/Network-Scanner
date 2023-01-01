@@ -3,7 +3,9 @@ logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 import scapy.all as scapy
 import argparse
 #pipe install scapy-python3
-
+import pyfiglet
+ascii_banner = pyfiglet.figlet_format("Network Scanner",font="banner3-D")
+print(ascii_banner)
 def getArgs():
     parser = argparse.ArgumentParser(description="A simple Network Scanner built upon Scapy")
     parser.add_argument("-a", "--addr", dest="ip", help="IP Range to Scan", required=True)
@@ -25,6 +27,9 @@ def scan_network(ip, timeout=3):
 
 
 def display_res(result):
+    if len(result) == 0:
+        print("No Devices were found in \"" + opts.ip + "\" Network")
+        return
     print("Following Devices were found in \"" + opts.ip + "\" Network")
     print("==============================================")
     print("  IP\t\t\t  MAC Address")
